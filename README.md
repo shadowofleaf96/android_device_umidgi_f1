@@ -1,11 +1,4 @@
 LineageOS Device Tree for UMIDIGI F1 Play
----
-
-Dependencies of building:
-
-[Patches for MTK devices](https://github.com/PeterCxy/mtk_patches)  
-[Re-implemented MTK Telephony interfaces](https://github.com/PeterCxy/vendor_mediatek_hardware_telephony-ext)  
-[Reverse-engineered MTK radio HIDL](https://github.com/PeterCxy/vendor_mediatek_hardware_interfaces)
 
 Basic   | Spec Sheet
 -------:|:-------------------
@@ -21,5 +14,3 @@ Dimensions | 156.7 x 74.3 x 8.8 (mm)
 Display | 2340 x 1080, 6.3" LPTS
 Rear Camera | 48MP + 8MP, LED Flash
 Front Camera| 16MP
-
-![MT6771](https://fdn2.gsmarena.com/vv/pics/umidigi/umidigi-f1-1.jpg)

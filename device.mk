@@ -4,7 +4,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 
@@ -15,9 +14,6 @@ $(call inherit-product-if-exists, vendor/umidigi/F1_Play/F1_Play-vendor.mk)
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
     $(LOCAL_PATH)/overlay-lineage
-    
-# Overlay from mtk-telephony-ext
-include vendor/mediatek/hardware/telephony-ext/overlay.mk
 
 # A/B
 AB_OTA_UPDATER := false
@@ -27,41 +23,53 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     libaacwrapper
 
-# FM Radio
-PRODUCT_PACKAGES += \
-    FMRadio  \
-    libfmcust
-
 # Camera
 PRODUCT_PACKAGES += \
-    Snap
+    GoCamera
     
-# fastbootd
+# File Manager
 PRODUCT_PACKAGES += \
-    fastbootd
+    Filemanager      
+
+# MTKFMRadio
+PRODUCT_PACKAGES += \
+    MTKFMRadio
+
+# Eleven
+PRODUCT_PACKAGES += \
+    Eleven    
+
+# IMS Init
+PRODUCT_PACKAGES += \
+    ImsInit
 
 # fstab
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.mt6771:$(TARGET_COPY_OUT_RAMDISK)/fstab.mt6771
-
-# Prebuilt APKs
+    
+# Audio    
 PRODUCT_COPY_FILES += \
-    #$(LOCAL_PATH)/prebuilt/app/MaterialFiles.apk:$(TARGET_COPY_OUT_SYSTEM)/app/MaterialFiles.apk \
-    #$(LOCAL_PATH)/prebuilt/app/OpenCamera.apk:$(TARGET_COPY_OUT_SYSTEM)/app/OpenCamera.apk \
+    $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_policy_configuration.xml \
+    $(LOCAL_PATH)/audio/audio_policy_configuration_bluetooth_legacy_hal.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_policy_configuration_bluetooth_legacy_hal.xml\
+    $(LOCAL_PATH)/audio/audio_policy_volumes.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_policy_volumes.xml
 
-# Init cripts
+# Misc
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/misc/factory.ini:$(TARGET_COPY_OUT_SYSTEM)/etc/factory.ini \
+    $(LOCAL_PATH)/misc/custom.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/custom.conf
+
+# Ramdisk
 PRODUCT_PACKAGES += \
     init.mt6771.rc \
     fstab.mt6771 \
-    init.safailnet.rc
-
-# ImsInit hack
-PRODUCT_PACKAGES += \
-    ImsInit
-
-# Dex
-PRODUCT_DEXPREOPT_SPEED_APPS += \
-    SystemUI
+    init.safailnet.rc  
+    
+# Media
+PRODUCT_COPY_FILES += \
+   frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml \
+	$(LOCAL_PATH)/media/media_codecs_mediatek_video.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/media_codecs_mediatek_video.xml \
+	$(LOCAL_PATH)/media/media_codecs_mediatek_audio.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/media_codecs_mediatek_audio.xml \
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -70,10 +78,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/ACCDET.kl:$(TARGET_COPY_OUT_SYSTEM)/usr/keylayout/ACCDET.kl \
     $(LOCAL_PATH)/keylayout/mtk-kpd.kl:$(TARGET_COPY_OUT_SYSTEM)/usr/keylayout/mtk-kpd.kl
 
-# Media
+# Misc
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media_codecs_mediatek_video.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/media_codecs_mediatek_video.xml
-
+    $(LOCAL_PATH)/misc/factory.ini:$(TARGET_COPY_OUT_SYSTEM)/etc/factory.ini \
+    $(LOCAL_PATH)/misc/custom.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/custom.conf
 # NFC
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.0:64 \
@@ -83,10 +91,31 @@ PRODUCT_PACKAGES += \
     android.hardware.secure_element@1.1:64 \
     com.android.nfc_extras \
     Tag
-    
-# Overlay
+
+# KPOC
 PRODUCT_PACKAGES += \
-    DummyOverlay
+    libsuspend \
+    android.hardware.health@2.0
+
+# Offline charger
+PRODUCT_PACKAGES += \
+    charger_res_images \
+    product_charger_res_images
+
+# Symbols 
+PRODUCT_PACKAGES += \
+    libshim_showlogo
+    
+# Trust 
+PRODUCT_PACKAGES += \
+    lineage.trust@1.0-service   
+    
+# Enable dexpreopt to speed boot time
+WITH_DEXPREOPT := true
+
+# Dex
+PRODUCT_DEXPREOPT_SPEED_APPS += \
+    SystemUI
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -99,28 +128,26 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.camera.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.camera.xml \
-    frameworks/native/data/etc/android.hardware.telephony.ims.xml:system/etc/permissions/android.hardware.telephony.ims.xml 
-    
-# Memory optimization
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    ro.sys.fw.bservice_enable=true \
-    ro.sys.fw.bservice_limit=5 \
-    ro.sys.fw.bservice_age=5000 \
-    ro.am.reschedule_service=true \
-    ro.sys.fw.bg_apps_limit=24 
+    frameworks/native/data/etc/android.hardware.telephony.ims.xml:system/etc/permissions/android.hardware.telephony.ims.xml \
+        $(LOCAL_PATH)/permissions/privapp-permissions-mediatek.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-mediatek.xml \
+        frameworks/native/data/etc/android.hardware.telephony.ims.xml:system/etc/permissions/android.hardware.telephony.ims.xml \
 
-# Graphics
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-    debug.sf.enable_gl_backpressure=1
-
-# Media
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-   media.stagefright.thumbnail.prefer_hw_codecs=true
-   
-# Telephony
+   # LiveDisplay
 PRODUCT_PACKAGES += \
-    telephony-ext \
-    mtk-telephony-ext
-
+    lineage.livedisplay@2.0-service-mediatek
+    
+    # Seccomp
+PRODUCT_COPY_FILES += \
+  $(COMMON_PATH)/seccomp/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
+  $(COMMON_PATH)/seccomp/mediaextractor.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy \
+ $(COMMON_PATH)/seccomp/mediaswcodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaswcodec.policy
+   
+# Telephony Jars
 PRODUCT_BOOT_JARS += \
-    telephony-ext
+    mediatek-common \
+    mediatek-framework \
+    mediatek-ims-base \
+    mediatek-ims-common \
+    mediatek-telecom-common \
+    mediatek-telephony-base \
+    mediatek-telephony-common

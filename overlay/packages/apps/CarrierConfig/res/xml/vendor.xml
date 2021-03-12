@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<carrier_config_list>
+	<carrier_config mcc="460" mnc="11">
+		<int name="mtk_cdma_sms_7bit_encoding_type_int" value="2" />
+	</carrier_config>
+	<carrier_config mcc="460" mnc="03">
+		<int name="mtk_cdma_sms_7bit_encoding_type_int" value="2" />
+	</carrier_config>
+	<carrier_config mcc="455" mnc="02">
+		<int name="mtk_cdma_sms_7bit_encoding_type_int" value="2" />
+	</carrier_config>
+	<carrier_config mcc="455" mnc="07">
+		<int name="mtk_cdma_sms_7bit_encoding_type_int" value="2" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="180">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="410">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="150">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="170">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="380">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="311" mnc="560">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="680">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="070">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="090">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="030">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="030">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="311" mnc="180">
+		<boolean name="mtk_rtt_advanced_features_support_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="00">
+		<boolean name="config_telephony_use_own_number_for_voicemail_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="310" mnc="120">
+		<boolean name="config_telephony_use_own_number_for_voicemail_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="311" mnc="870">
+		<boolean name="config_telephony_use_own_number_for_voicemail_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="311" mnc="880">
+		<boolean name="config_telephony_use_own_number_for_voicemail_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="312" mnc="010">
+		<boolean name="config_telephony_use_own_number_for_voicemail_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="312" mnc="190">
+		<boolean name="config_telephony_use_own_number_for_voicemail_bool" value="true" />
+	</carrier_config>
+	<carrier_config mcc="312" mnc="530">
+		<boolean name="config_telephony_use_own_number_for_voicemail_bool" value="true" />
+	</carrier_config>
+</carrier_config_list>

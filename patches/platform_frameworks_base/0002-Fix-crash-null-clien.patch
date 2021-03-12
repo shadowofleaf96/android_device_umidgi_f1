@@ -1,0 +1,26 @@
+From f975b01df3d78b0386710496e19118481e5aebaf Mon Sep 17 00:00:00 2001
+From: Stan Iliev <stani@google.com>
+Date: Thu, 1 Aug 2019 14:41:52 -0400
+Subject: [PATCH 48/57] TextureVuew rebind GL texture, if AHB content has
+ changed
+
+Bug: 138674291
+Test: Ran apps with TextureView and CTS
+Change-Id: Ieecf7daf160761de719356644ddaeda8f9c068e1
+---
+ .../services/core/java/com/android/server/biometrics/BiometricServiceBase.java | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/services/core/java/com/android/server/biometrics/BiometricServiceBase.java b/services/core/java/com/android/server/biometrics/BiometricServiceBase.java
+index 74079c19af2..6d90761ca2f 100644
+--- a/services/core/java/com/android/server/biometrics/BiometricServiceBase.java
++++ b/services/core/java/com/android/server/biometrics/BiometricServiceBase.java
+@@ -783,6 +783,7 @@ public abstract class BiometricServiceBase extends SystemService
+     protected void handleEnumerate(BiometricAuthenticator.Identifier identifier, int remaining) {
+         ClientMonitor client = getCurrentClient();
+ 
++        if(client == null) return;
+         client.onEnumerationResult(identifier, remaining);
+ 
+         // All templates in the HAL for this user were enumerated
+-- 

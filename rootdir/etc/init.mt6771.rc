@@ -1,29 +1,61 @@
 import /system/etc/init/init.safailnet.rc
 
+service charger /charger
+    class charger
+    group system shell input graphics
+    seclabel u:r:charger:s0
+
+on early-init
+
+    on charger && property:ro.hardware=mt*
+    write /sys/class/leds/lcd-backlight/trigger "backlight"
+    write /sys/class/android_usb/android0/enable 1
+
 on init
     setprop sys.usb.ffs.aio_compat 1
     setprop persist.adb.nonblocking_ffs 0
     setprop ro.adb.nonblocking_ffs 0
     setprop persist.sys.usb.config adb
-
-    # Force disable all VoLTE support -- it requires intensive modification of frameworks
+ # Force disable all VoLTE support -- it requires intensive modification of frameworks
     # without framework support it creates all sorts of problems. Disable it.
     setprop persist.vendor.mtk.volte.enable 0
     setprop persist.vendor.mtk_ct_volte_support 0
-
     # Custom overrides that need to happen right on boot
     # Override vendor fstab
+    symlink /system_root/system /system
     # We only need it to be overridden before things are mounted
     mount none /system/etc/fstab.mt6771 /vendor/etc/fstab.mt6771 bind
     # Override codec config
     mount none /system/etc/media_codecs_mediatek_video.xml /vendor/etc/media_codecs_mediatek_video.xml bind
+    # Somehow AOSP build system hasn't provided a symlink here
+    symlink /system_root/system /system
+
+    mount none /system/etc/audio_policy_configuration.xml /vendor/etc/audio_policy_configuration.xml bind
+
+    
+on fs
+    # Override vendor fstab again because things like Magisk will re-bind /vendor
+    mount none /system/etc/fstab.mt6771 /vendor/etc/fstab.mt6771 bind
+
+on post-fs
+  # Override stock libmtk-ril.so with Hex-edited libmtk-ril.so to fix incoming calls
+    mount none /system/lib64/libmtk-ril.so /vendor/lib64/libmtk-ril.so bind
+    #SmartPA
+    chmod 0640 /dev/audio_scp
+    chown media media /dev/audio_scp
+    chown audioserver audio /sys/bus/platform/devices/rt5509_param.0/prop_param
+    chown audioserver audio /sys/bus/platform/devices/rt5509_param.1/prop_param
+
+    # FM Radio device node
+    chmod 0660 /dev/fm
+    chown media media /dev/fm
 
 on zygote-start
     # Custom overrides that need to happen AFTER things like Magisk have loaded
     # zygote-start is re-run after decryption, so we can be sure these will be mounted
     # over the Magisk ones
-    # Remove default overlay to frameworks-res so that ours can work
-    mount none /system/overlay/DummyOverlay.apk /vendor/overlay/framework-res__auto_generated_rro.apk bind
-    # Override codec config again in case of Magisk
-    mount none /system/etc/media_codecs_mediatek_video.xml /vendor/etc/media_codecs_mediatek_video.xml bind
+on property:sys.boot_completed=1
+    exec - root -- /system/bin/sh -c "service call SurfaceFlinger 1008 i32 1"    
+on boot
+    setprop init.svc.console stopped
 

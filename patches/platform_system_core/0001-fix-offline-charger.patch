@@ -1,0 +1,30 @@
+Subject: [PATCH] fix offline charger
+From: Luis Gonzales <luisgonzales272@gmail.com>
+Date: Wed, 29 Aug 2018 11:21:52 +0200
+
+diff -u a/rootdir/init.rc b/rootdir/init.rc
+--- a/rootdir/init.rc	2020-04-28 23:57:16.044298000 -0600
++++ b/rootdir/init.rc	2020-05-02 12:43:59.384741180 -0600
+@@ -11,6 +11,11 @@
+ import /init.usb.configfs.rc
+ import /init.${ro.zygote}.rc
+ 
++service charger /charger
++    class charger
++    group system shell input graphics
++    seclabel u:r:charger:s0
++
+ # Cgroups are mounted right before early-init using list from /etc/cgroups.json
+ on early-init
+     # Disable sysrq from keyboard
+@@ -763,6 +768,10 @@
+ on property:sys.init_log_level=*
+     loglevel ${sys.init_log_level}
+ 
++on charger && property:ro.hardware=mt*
++    write /sys/class/leds/lcd-backlight/trigger "backlight"
++    write /sys/class/android_usb/android0/enable 1
++
+ on charger
+     class_start charger
+
