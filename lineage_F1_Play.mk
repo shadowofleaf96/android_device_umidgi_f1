@@ -19,7 +19,7 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 PRODUCT_NAME := lineage_F1_Play
 PRODUCT_DEVICE := F1_Play
 PRODUCT_BRAND := UMIDIGI
-PRODUCT_MODEL := F1 Play
+PRODUCT_MODEL := F1_Play
 PRODUCT_MANUFACTURER := A-gold
 
 # Product characteristics

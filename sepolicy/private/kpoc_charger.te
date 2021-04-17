@@ -41,3 +41,4 @@ allow kpoc_charger bootdevice_block_device:blk_file open;
 allow kpoc_charger sysfs_vbus:file r_file_perms;
 allow kpoc_charger sysfs_pump_express:file r_file_perms;
 allow kpoc_charger debugfs_wakeup_sources:file r_file_perms;
+

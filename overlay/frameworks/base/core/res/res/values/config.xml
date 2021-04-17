@@ -60,7 +60,7 @@
     <bool name="config_wifi_dual_band_support">true</bool>
 
   <!-- Whether device supports double tap to wake -->
-    <bool name="config_supportDoubleTapWake">false</bool>
+    <bool name="config_supportDoubleTapWake">true</bool>
      <bool name="config_enableWifiDisplay">true</bool>
 
     <!-- An Array of "[Connection name],[ConnectivityManager.TYPE_xxxx],
@@ -69,7 +69,7 @@
          before automatically restore the default connection.  Set -1 if the connection
          does not require auto-restore. -->
     <!-- the 6th element indicates boot-time dependency-met value. -->
-   <string-array name="networkAttributes">
+ <string-array name="networkAttributes">
         <item>wifi,1,1,1,-1,true</item>
         <item>mobile,0,0,0,-1,true</item>
         <item>mobile_mms,2,0,2,60000,true</item>
@@ -88,7 +88,7 @@
         <item>mobile_bip,27,0,3,60000,true</item>
         <item>mobile_vsim,28,0,-1,60000,true</item>
         <item>mobile_preempt,29,0,9,60000,true</item>
-    </string-array>    
+    </string-array>
 
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N  1 zones as follows:
@@ -141,8 +141,6 @@
     <integer name="config_autoBrightnessBrighteningLightDebounce">2000</integer>
     <integer name="config_autoBrightnessDarkeningLightDebounce">2000</integer>
 
-	 <bool name="config_setColorTransformAccelerated">true</bool>
-
     <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
          autodetected from the Configuration. -->
     <bool name="config_showNavigationBar">true</bool>
@@ -160,8 +158,6 @@
 
    <!-- Wifi driver supports IEEE80211AC for softap -->
     <bool name="config_wifi_softap_ieee80211ac_supported">true</bool>
-
-    <bool name="config_eap_sim_based_auth_supported">true</bool>
 
     <!-- When true use the linux /dev/input/event subsystem to detect the switch changes
          on the headphone/microphone jack. When false use the older uevent framework. -->

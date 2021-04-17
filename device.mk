@@ -15,6 +15,9 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
     $(LOCAL_PATH)/overlay-lineage
 
+# Properties
+PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
+
 # A/B
 AB_OTA_UPDATER := false
 
@@ -29,7 +32,7 @@ PRODUCT_PACKAGES += \
     
 # File Manager
 PRODUCT_PACKAGES += \
-    Filemanager      
+    Filemanager        
 
 # MTKFMRadio
 PRODUCT_PACKAGES += \
@@ -38,20 +41,26 @@ PRODUCT_PACKAGES += \
 # Eleven
 PRODUCT_PACKAGES += \
     Eleven    
-
+    
 # IMS Init
 PRODUCT_PACKAGES += \
     ImsInit
+    
+# Faceunlock
+PRODUCT_PACKAGES += \
+    FaceUnlockService	
+
+# Fastbootd
+PRODUCT_PACKAGES += \
+    fastbootd
 
 # fstab
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.mt6771:$(TARGET_COPY_OUT_RAMDISK)/fstab.mt6771
-    
-# Audio    
+
+# Recovery
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_policy_configuration.xml \
-    $(LOCAL_PATH)/audio/audio_policy_configuration_bluetooth_legacy_hal.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_policy_configuration_bluetooth_legacy_hal.xml\
-    $(LOCAL_PATH)/audio/audio_policy_volumes.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_policy_volumes.xml
+    $(LOCAL_PATH)/recovery/root/init.recovery.mt6771.rc:root/init.recovery.mt6771.rc
 
 # Misc
 PRODUCT_COPY_FILES += \
@@ -66,10 +75,7 @@ PRODUCT_PACKAGES += \
     
 # Media
 PRODUCT_COPY_FILES += \
-   frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml \
-	$(LOCAL_PATH)/media/media_codecs_mediatek_video.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/media_codecs_mediatek_video.xml \
-	$(LOCAL_PATH)/media/media_codecs_mediatek_audio.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/media_codecs_mediatek_audio.xml \
+    $(LOCAL_PATH)/media/media_codecs_mediatek_audio.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/media_codecs_mediatek_audio.xml
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -82,6 +88,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/misc/factory.ini:$(TARGET_COPY_OUT_SYSTEM)/etc/factory.ini \
     $(LOCAL_PATH)/misc/custom.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/custom.conf
+
 # NFC
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.0:64 \
@@ -96,26 +103,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libsuspend \
     android.hardware.health@2.0
-
-# Offline charger
+    
+# Overlays -- replace official
 PRODUCT_PACKAGES += \
-    charger_res_images \
-    product_charger_res_images
-
-# Symbols 
-PRODUCT_PACKAGES += \
-    libshim_showlogo
+    DummyOverlay
     
 # Trust 
 PRODUCT_PACKAGES += \
     lineage.trust@1.0-service   
-    
-# Enable dexpreopt to speed boot time
-WITH_DEXPREOPT := true
-
-# Dex
-PRODUCT_DEXPREOPT_SPEED_APPS += \
-    SystemUI
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -132,16 +127,16 @@ PRODUCT_COPY_FILES += \
         $(LOCAL_PATH)/permissions/privapp-permissions-mediatek.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-mediatek.xml \
         frameworks/native/data/etc/android.hardware.telephony.ims.xml:system/etc/permissions/android.hardware.telephony.ims.xml \
 
-   # LiveDisplay
-PRODUCT_PACKAGES += \
-    lineage.livedisplay@2.0-service-mediatek
-    
-    # Seccomp
+# Seccomp
 PRODUCT_COPY_FILES += \
-  $(COMMON_PATH)/seccomp/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
-  $(COMMON_PATH)/seccomp/mediaextractor.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy \
- $(COMMON_PATH)/seccomp/mediaswcodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaswcodec.policy
-   
+    $(LOCAL_PATH)/seccomp/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
+    $(LOCAL_PATH)/seccomp/mediaextractor.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy \
+    $(LOCAL_PATH)/seccomp/mediaswcodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaswcodec.policy
+
+# LiveDisplay
+PRODUCT_PACKAGES += \
+    vendor.lineage.livedisplay@2.0-service-mediatek
+
 # Telephony Jars
 PRODUCT_BOOT_JARS += \
     mediatek-common \

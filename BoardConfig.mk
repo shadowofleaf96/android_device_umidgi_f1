@@ -8,11 +8,11 @@ DEVICE_PATH := device/umidigi/F1_Play
 
 BOARD_VENDOR := umidigi
 
-# Assertions
-TARGET_OTA_ASSERT_DEVICE := F1_Play
-
 # APEX
 TARGET_FLATTEN_APEX := true
+
+# Display
+TARGET_USES_HWC2 := true
 
 # Architecture
 TARGET_ARCH := arm64
@@ -36,7 +36,6 @@ ENABLE_SCHEDBOOST := true
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
-USE_CUSTOM_AUDIO_POLICY := 1
 
 # Avb
 BOARD_AVB_ENABLE := false
@@ -57,7 +56,6 @@ TARGET_NO_BOOTLOADER := true
 
 # Kernel
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive
-BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery 
 BOARD_KERNEL_BASE := 0x40078000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_HASH_TYPE := sha1
@@ -117,26 +115,17 @@ PRODUCT_SOONG_NAMESPACES += vendor/umidigi/F1_Play
 # Network Routing
 TARGET_IGNORES_FTP_PPTP_CONNTRACK_FAILURE := true
 
+# Face Unlock
+TARGET_FACE_UNLOCK_SUPPORTED := true
+
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
-
-# Graphics
-TARGET_USES_HWC2 := true
-
-# Fix video autoscaling on old OMX decoders
-TARGET_OMX_LEGACY_RESCALING:= true
-
-# Camera
-TARGET_CAMERASERVICE_CLOSES_NATIVE_HANDLES := true
-USE_CAMERA_STUB := true
-
-# Symbols
-TARGET_LD_SHIM_LIBS := /system/lib/libshowlogo.so|libshim_showlogo.so
 
 # Treble
 BOARD_VNDK_VERSION := current
 PRODUCT_TARGET_VNDK_VERSION := 28
 PRODUCT_EXTRA_VNDK_VERSIONS := 28
+
 # We need this for apns-conf
 # We would like to override instead of merge
 BUILD_BROKEN_DUP_RULES := true
