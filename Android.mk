@@ -3,11 +3,8 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),F1_Play)
-
-include $(call all-subdir-makefiles,$(LOCAL_PATH))
-
+ifeq ($(TARGET_DEVICE),F1)
+include $(call all-makefiles-under,$(LOCAL_PATH))
 endif

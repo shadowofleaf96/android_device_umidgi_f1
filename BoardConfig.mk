@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/umidigi/F1_Play
+DEVICE_PATH := device/umidigi/F1
 
 BOARD_VENDOR := umidigi
 
@@ -90,6 +90,10 @@ BOARD_ROOT_EXTRA_FOLDERS += metadata
 # Properties
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+TARGET_PRODUCT_PROP += $(DEVICE_PATH)/product.prop
+
+# Enable dexpreopt to speed boot time
+WITH_DEXPREOPT := true
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
@@ -110,7 +114,7 @@ TARGET_HAS_FUSEBLK_SEPOLICY_ON_VENDOR := true
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR := $(DEVICE_PATH)/sepolicy/private
 
 # Soong
-PRODUCT_SOONG_NAMESPACES += vendor/umidigi/F1_Play
+PRODUCT_SOONG_NAMESPACES += vendor/umidigi/F1
 
 # Network Routing
 TARGET_IGNORES_FTP_PPTP_CONNTRACK_FAILURE := true

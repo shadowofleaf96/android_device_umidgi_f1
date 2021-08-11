@@ -34,24 +34,16 @@ on init
     mount none /system/etc/fstab.mt6771 /vendor/etc/fstab.mt6771 bind
     # Override codec config
     mount none /system/etc/media_codecs_mediatek_video.xml /vendor/etc/media_codecs_mediatek_video.xml bind
-    # Somehow AOSP build system hasn't provided a symlink here
-    symlink /system_root/system /system
-    mount none /system/etc/audio_policy_configuration.xml /vendor/etc/audio_policy_configuration.xml bind
-      # Disable vendor overlay
+    # Disable vendor overlay
     mount none /vendor/lost+found /vendor/overlay bind
-    service aee_aedv /system/bin/true
-    oneshot
-    disabled
-    service aee_aedv64 /system/bin/true
-    oneshot
-    disabled
-
+    # Disable AOSP RIL if MTK RIL is up
+	on property:vendor.ril.mtk=1
+    	stop vendor.ril-daemon
 on zygote-start
     # Custom overrides that need to happen AFTER things like Magisk have loaded
     # zygote-start is re-run after decryption, so we can be sure these will be mounted
-    # over the Magisk ones
-    # Remove default overlay to frameworks-res so that ours can work
     mount none /system/overlay/DummyOverlay.apk /vendor/overlay/framework-res__auto_generated_rro.apk bind
+    # over the Magisk ones
     # Override codec config again in case of Magisk
     mount none /system/etc/media_codecs_mediatek_video.xml /vendor/etc/media_codecs_mediatek_video.xml bind
 
@@ -59,3 +51,18 @@ on fs
     # Override vendor fstab again because things like Magisk will re-bind /vendor	
     mount none /system/etc/fstab.mt6771 /vendor/etc/fstab.mt6771 bind
 
+on post-fs-data
+    # FM Radio permission fix
+    chmod 0666 /dev/fm
+    chown media media /dev/fm
+ 
+    mkdir /data/nfc_socket 0771 nfc radio
+    restorecon_recursive /data/nfc_socket
+    
+    #VideoCodec
+    chmod 0666 /dev/Vcodec
+    chown mediacodec system /dev/Vco
+    
+    on property:sys.boot_completed=1
+    # force disable hw overlays to be true
+    exec - root -- /system/bin/sh -c "service call SurfaceFlinger 1008 i32 1" 

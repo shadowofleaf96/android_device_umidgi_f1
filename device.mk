@@ -8,15 +8,12 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 
 # Get non-open-source specific aspects
-$(call inherit-product-if-exists, vendor/umidigi/F1_Play/F1_Play-vendor.mk)
+$(call inherit-product-if-exists, vendor/umidigi/F1/F1-vendor.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
     $(LOCAL_PATH)/overlay-lineage
-
-# Properties
-PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
 # A/B
 AB_OTA_UPDATER := false
@@ -28,15 +25,15 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    GoCamera
+    Snap
     
+# Besloudness Fix
+PRODUCT_PACKAGES += \
+    BesloudnessDisabler
+
 # File Manager
 PRODUCT_PACKAGES += \
     Filemanager        
-
-# MTKFMRadio
-PRODUCT_PACKAGES += \
-    MTKFMRadio
 
 # Eleven
 PRODUCT_PACKAGES += \
@@ -54,28 +51,39 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fastbootd
 
-# fstab
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/fstab.mt6771:$(TARGET_COPY_OUT_RAMDISK)/fstab.mt6771
+# Bluetooth
+PRODUCT_PACKAGES += \
+    libldacBT_dec \
+    libbtconfigstore
 
-# Recovery
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/recovery/root/init.recovery.mt6771.rc:root/init.recovery.mt6771.rc
-
-# Misc
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/misc/factory.ini:$(TARGET_COPY_OUT_SYSTEM)/etc/factory.ini \
-    $(LOCAL_PATH)/misc/custom.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/custom.conf
+# FMRadio
+PRODUCT_PACKAGES += \
+    FMRadio 
 
 # Ramdisk
 PRODUCT_PACKAGES += \
     init.mt6771.rc \
     fstab.mt6771 \
-    init.safailnet.rc  
+    init.safailnet.rc
+
+# Recovery
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/root/init.recovery.mt6771.rc:root/init.recovery.mt6771.rc
     
+# Audio Config
+PRODUCT_COPY_FILES += \
+     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
+    $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_policy_configuration.xml
+    
+# Misc
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/misc/factory.ini:$(TARGET_COPY_OUT_SYSTEM)/etc/factory.ini \
+    $(LOCAL_PATH)/misc/custom.conf:$(TARGET_COPY_OUT_SYSTEM)/etc/custom.conf
+
 # Media
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/media/media_codecs_mediatek_audio.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/media_codecs_mediatek_audio.xml
+    $(LOCAL_PATH)/media/media_codecs_mediatek_audio.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/media_codecs_mediatek_audio.xml \
+    $(LOCAL_PATH)/media/media_codecs_mediatek_video.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/media_codecs_mediatek_video.xml
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -91,6 +99,7 @@ PRODUCT_COPY_FILES += \
 
 # NFC
 PRODUCT_PACKAGES += \
+    NfcNci \
     android.hardware.nfc@1.0:64 \
     android.hardware.nfc@1.1:64 \
     android.hardware.nfc@1.2:64 \
@@ -99,18 +108,31 @@ PRODUCT_PACKAGES += \
     com.android.nfc_extras \
     Tag
 
+# Dex
+PRODUCT_DEXPREOPT_SPEED_APPS += \
+    SystemUI
+
 # KPOC
 PRODUCT_PACKAGES += \
-    libsuspend \
-    android.hardware.health@2.0
+    libsuspend 
     
-# Overlays -- replace official
+# Health
 PRODUCT_PACKAGES += \
-    DummyOverlay
+    android.hardware.health@2.0-service \
+    android.hardware.health@2.0-service.override
+    
+# Vibrator
+PRODUCT_PACKAGES += \
+    android.hardware.vibrator@1.0-service \
+    android.hardware.vibrator@1.0-impl
     
 # Trust 
 PRODUCT_PACKAGES += \
     lineage.trust@1.0-service   
+    
+# Overlay
+PRODUCT_PACKAGES += \
+    DummyOverlay
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -132,10 +154,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
     $(LOCAL_PATH)/seccomp/mediaextractor.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy \
     $(LOCAL_PATH)/seccomp/mediaswcodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaswcodec.policy
-
-# LiveDisplay
-PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service-mediatek
 
 # Telephony Jars
 PRODUCT_BOOT_JARS += \

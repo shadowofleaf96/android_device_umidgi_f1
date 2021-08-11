@@ -1,2 +1,3 @@
 # Kernel Power Off Charging (KPOC)
 /system/bin/kpoc_charger u:object_r:kpoc_charger_exec:s0
+/dev/fm(/.*)? u:object_r:fm_device:s0

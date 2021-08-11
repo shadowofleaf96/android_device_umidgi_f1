@@ -60,8 +60,19 @@
     <bool name="config_wifi_dual_band_support">true</bool>
 
   <!-- Whether device supports double tap to wake -->
-    <bool name="config_supportDoubleTapWake">true</bool>
+    <bool name="config_supportDoubleTapWake">false</bool>
      <bool name="config_enableWifiDisplay">true</bool>
+
+ <!-- Flag indicating whether the surface flinger has limited
+         alpha compositing functionality in hardware.  If set, the window
+         manager will disable alpha trasformation in animations where not
+         strictly needed. -->
+    <bool name="config_sf_limitedAlpha">true</bool>
+
+    <!-- Enables or disables fading edges when marquee is enabled in TextView.
+         Off by default, since the framebuffer readback used to implement the
+         fading edges is prohibitively expensive on most GPUs. -->
+    <bool name="config_ui_enableFadingMarquee">true</bool>
 
     <!-- An Array of "[Connection name],[ConnectivityManager.TYPE_xxxx],
          [associated radio-type],[priority],[restoral-timer(ms)],[dependencyMet]  -->
@@ -128,10 +139,6 @@
     
       <!-- Flag specifying whether VoLTE is available on device -->
     <bool name="config_device_volte_available">false</bool>
-
- 	 <dimen name="status_bar_height">32.0dip</dimen>
-    	 <dimen name="status_bar_height_portrait">32.0dip</dimen>
-    	 <dimen name="status_bar_height_landscape">32.0dip</dimen>
 
     <!-- Stability requirements in milliseconds for accepting a new brightness level.  This is used
          for debouncing the light sensor.  Different constants are used to debounce the light sensor
@@ -222,7 +229,7 @@
     <integer name="config_shutdownBatteryTemperature">600</integer>
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
-    <integer name="config_screenBrightnessSettingMinimum">2</integer>
+    <integer name="config_screenBrightnessSettingMinimum">1</integer>
 
     <!-- Like config_mainBuiltInDisplayCutout, but this path is used to report the
          one single bounding rect per device edge to the app via
