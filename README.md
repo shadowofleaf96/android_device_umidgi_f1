@@ -1,9 +1,10 @@
-TWRP for Cubot x30 Android 10 MTK Helio P60.
+TWRP for F1 / F1 Play
 ================================================
-- Decryption finally works!!!
+*Whats working :
+- Decryption
 - Backup / Restore
 - ADB
 - MTP
 - OTG
-## Big thanks to:
-- [ADeadTrousers](https://github.com/ADeadTrousers) for helping with decryption.
+
+if you want to build it yourself, use my custom bootable/recovery to ensure everything will work
