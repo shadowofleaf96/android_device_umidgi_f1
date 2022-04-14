@@ -1,6 +1,6 @@
 TWRP for F1 / F1 Play
 ================================================
-* Whats working :
+Whats working :
 - Decryption
 - Backup / Restore
 - ADB
