@@ -1,3 +1,0 @@
-type logo_device, dev_type;
-type logo_block_device, dev_type;
-type bootdevice_block_device, dev_type;
