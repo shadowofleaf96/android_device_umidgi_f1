@@ -7,12 +7,6 @@ service charger /system/bin/charger
     capabilities SYS_BOOT
     seclabel u:r:charger:s0
 
-on early-init
-
-    on charger && property:ro.hardware=mt*
-    write /sys/class/leds/lcd-backlight/trigger "backlight"
-    write /sys/class/android_usb/android0/enable 1
-
 on init
     setprop sys.usb.ffs.aio_compat 1
     setprop persist.adb.nonblocking_ffs 0
@@ -52,16 +46,11 @@ on fs
     mount none /system/etc/fstab.mt6771 /vendor/etc/fstab.mt6771 bind
 
 on post-fs-data
-    # FM Radio permission fix
-    chmod 0666 /dev/fm
-    chown media media /dev/fm
- 
-    mkdir /data/nfc_socket 0771 nfc radio
-    restorecon_recursive /data/nfc_socket
-    
-    #VideoCodec
-    chmod 0666 /dev/Vcodec
-    chown mediacodec system /dev/Vco
+  # Unmount the overridden fstab because the SELinux label is incorrect
+    # and some MTK daemons can crash because of that
+    # (at post-fs, the fstab has already been used to mount the partitions,
+    #  so it is fine to just revert back)
+    umount /vendor/etc/fstab.mt6771
     
     on property:sys.boot_completed=1
     # force disable hw overlays to be true

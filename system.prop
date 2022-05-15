@@ -1,6 +1,7 @@
 # Audio
 ro.camera.sound.forced=0
 ro.audio.silent=0
+persist.sys.phh.disable_a2dp_offload=true
 
 # Brand
 Build.BRAND=MTK

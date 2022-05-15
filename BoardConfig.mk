@@ -11,9 +11,6 @@ BOARD_VENDOR := umidigi
 # APEX
 TARGET_FLATTEN_APEX := true
 
-# Display
-TARGET_USES_HWC2 := true
-
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
@@ -92,6 +89,9 @@ BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 TARGET_PRODUCT_PROP += $(DEVICE_PATH)/product.prop
 
+# We need this file to fix "service is unavailable"
+CUSTOM_APNS_FILE := device/sample/etc/apns-full-conf.xml 
+
 # Enable dexpreopt to speed boot time
 WITH_DEXPREOPT := true
 
@@ -109,9 +109,9 @@ TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 TARGET_USES_LOGD := true
 
 # Sepolicy
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
 TARGET_USES_PREBUILT_VENDOR_SEPOLICY := true
 TARGET_HAS_FUSEBLK_SEPOLICY_ON_VENDOR := true
-BOARD_PLAT_PRIVATE_SEPOLICY_DIR := $(DEVICE_PATH)/sepolicy/private
 
 # Soong
 PRODUCT_SOONG_NAMESPACES += vendor/umidigi/F1
