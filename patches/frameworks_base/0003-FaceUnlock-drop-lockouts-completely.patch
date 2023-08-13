@@ -1,0 +1,62 @@
+From 10b762ea3de41c8089da6ef38445c26d902b5049 Mon Sep 17 00:00:00 2001
+From: DennySPb <dennyspb@gmail.com>
+Date: Wed, 14 Oct 2020 09:29:06 +0300
+Subject: [PATCH 08/23] FaceUnlock: drop lockouts completely
+
+our faceunlock service is a little buggy,
+after a night standby we see an excess of attempts,
+although in fact there were none at all. Let's just remove lockouts completely
+
+Change-Id: Ie41d7fd12274c6abf714a5fbab862146f65a6de3
+Signed-off-by: DennySPb <dennyspb@gmail.com>
+---
+ .../server/biometrics/face/FaceService.java   | 19 +++----------------
+ 1 file changed, 3 insertions(+), 16 deletions(-)
+
+diff --git a/services/core/java/com/android/server/biometrics/face/FaceService.java b/services/core/java/com/android/server/biometrics/face/FaceService.java
+index 37564d8a..989af286 100644
+--- a/services/core/java/com/android/server/biometrics/face/FaceService.java
++++ b/services/core/java/com/android/server/biometrics/face/FaceService.java
+@@ -209,13 +209,7 @@ public class FaceService extends BiometricServiceBase {
+ 
+         @Override
+         public void onLockoutChanged(long duration) throws RemoteException {
+-            if (duration == 0) {
+-                mCurrentUserLockoutMode = 0;
+-            } else if (duration == Long.MAX_VALUE) {
+-                mCurrentUserLockoutMode = 2;
+-            } else {
+-                mCurrentUserLockoutMode = 1;
+-            }
++            mCurrentUserLockoutMode = AuthenticationClient.LOCKOUT_NONE;
+             mHandler.post(new Runnable() {
+                 @Override
+                 public final void run() {
+@@ -1254,14 +1248,7 @@ public class FaceService extends BiometricServiceBase {
+         @Override
+         public void onLockoutChanged(long duration) {
+             Slog.d(TAG, "onLockoutChanged: " + duration);
+-            if (duration == 0) {
+-                mCurrentUserLockoutMode = AuthenticationClient.LOCKOUT_NONE;
+-            } else if (duration == Long.MAX_VALUE) {
+-                mCurrentUserLockoutMode = AuthenticationClient.LOCKOUT_PERMANENT;
+-            } else {
+-                mCurrentUserLockoutMode = AuthenticationClient.LOCKOUT_TIMED;
+-            }
+-
++            mCurrentUserLockoutMode = AuthenticationClient.LOCKOUT_NONE;
+             mHandler.post(() -> {
+                 if (duration == 0) {
+                     notifyLockoutResetMonitors();
+@@ -1662,7 +1649,7 @@ public class FaceService extends BiometricServiceBase {
+ 
+     @Override
+     protected int getLockoutMode() {
+-        return mCurrentUserLockoutMode;
++        return AuthenticationClient.LOCKOUT_NONE;
+     }
+ 
+     /** Gets the face daemon */
+-- 
+2.29.2
+
