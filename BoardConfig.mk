@@ -133,11 +133,6 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 # Symbols
 TARGET_LD_SHIM_LIBS := /system/lib/libshowlogo.so|libshim_showlogo.so
 
-# Treble
-BOARD_VNDK_VERSION := current
-PRODUCT_TARGET_VNDK_VERSION := 28
-PRODUCT_EXTRA_VNDK_VERSIONS := 28
-
 # We need this for apns-conf
 # We would like to override instead of merge
 BUILD_BROKEN_DUP_RULES := true
