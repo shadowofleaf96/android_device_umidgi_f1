@@ -65,7 +65,11 @@ ro.zygote.preload.enable=0
 # Graphics
 debug.hwui.use_buffer_age=false
 debug.sf.latch_unsignaled=1
+debug.sf.disable_backpressure=1
+ro.sf.blurs_are_expensive=1
+ro.surface_flinger.supports_background_blur=1
 debug.sf.enable_gl_backpressure=1
+ro.hardware.egl=mali 
 debug.cpurend.vsync=false
 debug.sf.early_phase_offset_ns=1500000 
 debug.sf.early_app_phase_offset_ns=1500000 
