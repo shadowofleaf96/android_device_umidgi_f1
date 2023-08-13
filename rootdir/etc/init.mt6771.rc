@@ -40,6 +40,8 @@ on zygote-start
     # over the Magisk ones
     # Override codec config again in case of Magisk
     mount none /system/etc/media_codecs_mediatek_video.xml /vendor/etc/media_codecs_mediatek_video.xml bind
+    
+    setprop init.svc.console stopped
 
 on fs
     # Override vendor fstab again because things like Magisk will re-bind /vendor	
