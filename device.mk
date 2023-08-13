@@ -122,7 +122,7 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
 
 # KPOC
 PRODUCT_PACKAGES += \
-    libsuspend 
+    libsuspend
     
 # Health
 PRODUCT_PACKAGES += \
