@@ -1,13 +1,15 @@
-Subject: [PATCH] fix offline charger
-From: Luis Gonzales <luisgonzales272@gmail.com>
-Date: Wed, 29 Aug 2018 11:21:52 +0200
+From 926741ab6bba20f287714847bf977b3127797cbd Mon Sep 17 00:00:00 2001
+From: Matthias Leitl <a.dead.trousers@gmail.com>
+Date: Sat, 28 Nov 2020 11:08:33 +0100
+Subject: [PATCH] Change vendor in bt_did.conf
 
+Change-Id: Ie1053c409766f3ec4935a88532b829dd34f3be57
 diff -u a/rootdir/init.rc b/rootdir/init.rc
 --- a/rootdir/init.rc	2020-04-28 23:57:16.044298000 -0600
 +++ b/rootdir/init.rc	2020-05-02 12:43:59.384741180 -0600
 @@ -11,6 +11,11 @@
- import /init.usb.configfs.rc
- import /init.${ro.zygote}.rc
+ import /system/etc/init/hw/init.usb.configfs.rc
+ import /system/etc/init/hw/init.${ro.zygote}.rc
  
 +service charger /charger
 +    class charger
