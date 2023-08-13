@@ -129,6 +129,9 @@ TARGET_FACE_UNLOCK_SUPPORTED := true
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
+# Symbols
+TARGET_LD_SHIM_LIBS := /system/lib/libshowlogo.so|libshim_showlogo.so
+
 # Treble
 BOARD_VNDK_VERSION := current
 PRODUCT_TARGET_VNDK_VERSION := 28

@@ -50,6 +50,10 @@ PRODUCT_PACKAGES += \
 # Fastbootd
 PRODUCT_PACKAGES += \
     fastbootd
+    
+# Showlogo Symbols
+PRODUCT_PACKAGES += \
+    libshim_showlogo
 
 # FMRadio
 PRODUCT_PACKAGES += \
