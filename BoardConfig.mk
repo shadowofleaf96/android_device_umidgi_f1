@@ -29,6 +29,8 @@ TARGET_2CPU_VARIANT_RUNTIME := cortex-a53
 ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
+BUILD_WITHOUT_VENDOR := true 
+
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
 
@@ -135,4 +137,7 @@ TARGET_LD_SHIM_LIBS := /system/lib/libshowlogo.so|libshim_showlogo.so
 
 # We need this for apns-conf
 # We would like to override instead of merge
+# Broken R
 BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_PREBUILT_ELF_FILES := true
+BUILD_BROKEN_VINTF_PRODUCT_COPY_FILES := true

@@ -11,11 +11,6 @@ diff -u a/rootdir/init.rc b/rootdir/init.rc
  import /system/etc/init/hw/init.usb.configfs.rc
  import /system/etc/init/hw/init.${ro.zygote}.rc
  
-+service charger /charger
-+    class charger
-+    group system shell input graphics
-+    seclabel u:r:charger:s0
-+
  # Cgroups are mounted right before early-init using list from /etc/cgroups.json
  on early-init
      # Disable sysrq from keyboard

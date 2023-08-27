@@ -65,8 +65,7 @@ index 2852f4fb4..7631bacd0 100644
 +
      if (android::base::GetBoolProperty("ro.persistent_properties.ready", false)) {
      update_sys_usb_config();
-    	
-   	}
+    	}
     }
  }
  
